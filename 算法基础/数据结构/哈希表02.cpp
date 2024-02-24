@@ -2,39 +2,46 @@
 #include <iostream>
 using namespace std;
 
-/* 哈希表___开放地址法模板 */
+/* 哈希表__开放地址法模板 */
 
-const int N = 1e5 + 3, null = 0x3f3f3f3f;
+const int N = 200003, null = 0x3f3f3f3f;							// N 一般为数据范围的两倍的第一个质数 
 
-int h[N];
+int n;
+int arr[N];
 
-int Find(int x) {
+char op[2];
+int x;
+
+int find(int x)
+{
 	int index = (x % N + N) % N;
 	
-	while (h[index] != null && h[index] != x) index = (index + 1) % N;
+	while (arr[index] != null && arr[index] != x) index = (index + 1) % N;
 	
 	return index;
 }
 
-int main() {
-	int n;
+int main()
+{
 	cin >> n;
 	
-	memset(h, 0x3f, N);
+	memset(arr, 0x3f, sizeof arr);
 	
-	while (n--) {
-		char op[2]; int x;
+	while (n--)
+	{
 		scanf("%s%d", op, &x);
+	
+		int k = find(x);
 		
-		int k = Find(x);
-		
-		if (op[0] == 'I') h[k] = x;
-		else {
-			if (h[k] != null) puts("Yes");
-			else puts("No");
+		if (op[0] == 'I')
+		{
+			arr[k] = x;
+		}
+		else 
+		{
+			printf(arr[k] != null ? "Yes\n" : "No\n");
 		}
 	}
-	
 	
 	return 0;
 }

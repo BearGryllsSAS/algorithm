@@ -2,44 +2,54 @@
 #include <iostream>
 using namespace std;
 
-/* 哈希表___拉链法模板*/
+/* 哈希表___拉链法模板 */
 
-const int N = 1e5 + 3;
+const int N = 1e5 + 10;
 
-int h[N], e[N], ne[N], idx;
+int n;
+int head[N], e[N], ne[N], idx;
 
-void Insert(int x) {
+char op[2];
+int x;
+
+void insert(int x)
+{
 	int index = (x % N + N) % N;
 	
 	e[idx] = x;
-	ne[idx] = h[index];
-	h[index] = idx++;
-}
+	ne[idx] = head[index];
+	head[index] = idx++;
+} 
 
-bool Find(int x) {
+bool query(int x)
+{
 	int index = (x % N + N) % N;
 	
-	for (int i = h[index]; i != -1; i = ne[i]) {
-		if (e[i] == x) return true;
+	for (int i = head[index]; i != -1; i = ne[i])
+	{
+		if (e[i] == x) return true;	
 	}
 	
 	return false;
 }
 
-int main() {
-	int n;
+int main()
+{
 	cin >> n;
 	
-	memset(h, -1, N);
-
-	while (n--) {
-		char op[2]; int x;
+	memset(head, -1, sizeof head);
+	
+	while (n--)
+	{
 		scanf("%s%d", op, &x);
 		
-		if (op[0] == 'I') Insert(x);
-		else {
-			if (Find(x)) puts("Yes");
-			else puts("No");
+		if (op[0] == 'I')
+		{
+			insert(x);
+		}
+		else
+		{
+			printf(query(x) ? "Yes\n" : "No\n");
 		}
 	}
 

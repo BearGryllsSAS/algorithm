@@ -1,39 +1,45 @@
 #include <iostream>
 using namespace std;
 
-/* ¶ÑÄ£°å01 */
+/* ¶ÑÄ£°å 01 */
 
 const int N = 1e5 + 10;
 
 int n, m;
-int h[N], size;
+int heap[N], size;
 
-void down(int u) {
+void down(int u)
+{
 	int t = u;
 	
-	if (u * 2 <= size && h[u * 2] < h[t]) t = u * 2;
-	if (u * 2 + 1 <= size && h[u * 2 + 1] < h[t]) t = u * 2 + 1;
+	if (u * 2 <= size && heap[u * 2] < heap[t]) t = u * 2;
+	if (u * 2 + 1 <= size && heap[u * 2 + 1] < heap[t]) t = u * 2 + 1;
 	
-	if (t != u) {
-		swap(h[t], h[u]);
+	if (t != u)
+	{
+		swap(heap[t], heap[u]);
 		
 		down(t);
 	}
+	
+	return;
 }
 
-int main() {
-	scanf("%d%d", &n, &m);
+int main()
+{
+	cin >> n >> m;
 	
 	size = n;
 	
-	for (int i = 1; i <= n; i++) scanf("%d", &h[i]);
+	for (int i = 1; i <= n; i++) scanf("%d", &heap[i]);
 	
 	for (int i = n / 2; i > 0; i--) down(i);
 	
-	while (m--) {
-		printf("%d ", h[1]);
+	while (m--)
+	{
+		printf("%d ", heap[1]);
 		
-		h[1] = h[size--];
+		heap[1] = heap[size--];
 		
 		down(1);
 	}

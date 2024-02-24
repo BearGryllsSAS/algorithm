@@ -9,8 +9,8 @@ int e[N], l[N], r[N], idx;
 
 // 初始化
 void init() {
-	// 0 存放左端点
-	// 1 存放右端点
+	// 0	head
+	// 1	tail
 	
 	idx = 2;
 	

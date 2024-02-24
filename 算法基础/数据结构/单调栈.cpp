@@ -1,28 +1,28 @@
-#include <iostream> 
+#include <iostream>
 using namespace std;
 
 /* µ¥µ÷Õ»Ä£°å */
 
 const int N = 1e5 + 10;
 
-int n;
-int stk[N], tt;
+int n, x;
+int st[N], tt;
 
-int main() {
-	cin >> n;
+int main()
+{
+	scanf("%d", &n);
 	
-	for (int i = 0; i < n; i++) {
-		int x;
+	for (int i = 0; i < n; i++)
+	{
 		scanf("%d", &x);
 		
-		while (tt && stk[tt] >= x) tt--;
+		while (tt && st[tt] >= x) tt--;
 		
-		if (tt) printf("%d ", stk[tt]);
+		if (tt) printf("%d ", st[tt]);
 		else printf("-1 ");
 		
-		stk[++tt] = x;
+		st[++tt] = x;
 	}
 	
 	return 0;
 }
-
