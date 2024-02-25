@@ -2,56 +2,61 @@
 #include <iostream>
 using namespace std;
 
-/* 图的深度优先搜索___邻接表题目 */
+/* 图的深度优先遍历模板（树的重心）*/
+// 邻接表才存储
 
 const int N = 1e5 + 10, M = 2 * N;
 
-int ans = N;
 int n, a, b;
 int h[N], e[M], ne[M], idx;
 int visit[N];
+int res = N;
 
-void add(int a, int b) {
+void add(int a, int b)
+{
 	e[idx] = b, ne[idx] = h[a], h[a] = idx++;
 }
 
-int bfs(int u) {
+int dfs(int u)
+{
 	visit[u] = 1;
 	
-	int size = 0, sum = 0;
+	int sum = 1, size = 0;
 	
-	for (int i = h[u]; i != -1; i = ne[i]) {
+	for (int i = h[u]; i != -1; i = ne[i])
+	{
 		int j = e[i];
 		
 		if (visit[j]) continue;
 		
-		int s = bfs(j);
+		int s = dfs(j);
 		
 		size = max(size, s);
 		
 		sum += s;
 	}
 	
-	size = max(size, n - sum - 1);
-	ans = min(ans, size);
+	res = min(res, max(size, n - sum));
 	
-	return sum + 1;
+	return sum;
 }
 
-int main() {
-	memset(h, -1, N);
+int main()
+{
+	memset(h, -1, sizeof h);
 	
 	cin >> n;
 	
-	for (int i = 0; i < n - 1; i++) {
-		cin >> a >> b;
+	for (int i = 0; i < n - 1; i++)
+	{
+		scanf("%d%d", &a, &b);
 		
 		add(a, b); add(b, a);
 	}
 	
-	bfs(1);
+	dfs(1);
 	
-	cout << ans << endl;
+	cout << res << endl;
 	
 	return 0;
 }

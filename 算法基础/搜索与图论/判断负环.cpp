@@ -8,44 +8,46 @@ using namespace std;
 const int N = 2010, M = 10010;
 
 int n, m, x, y, z;
-int h[N], e[M], ne[M], w[M], idx;
+int h[N], e[M], w[M], ne[M], idx;
 int d[N], cnt[N];
 bool inQue[N];
 
-void add(int a, int b, int c) {
-	e[idx] = b, w[idx] = c, ne[idx] = h[a], h[a] = idx++;
+void add(int x, int y, int z)
+{
+	e[idx] = y, w[idx] = z, ne[idx] = h[x], h[x] = idx++;
 }
 
-bool spfa() {
-	
+bool spfa()
+{
 	queue<int> myQue;
 	
-	for (int i = 1; i <= n; i++) {
+	for (int i = 1; i <= n; i++)										// 负环可能从 1 号点到不了	要把所有点加入进去	 
+	{
 		myQue.push(i);
 		
 		inQue[i] = true;
 	}
 	
-	while (!myQue.empty()) {
-		
-		int t = myQue.front();
+	while (!myQue.empty())
+	{
+		int it = myQue.front();
 		myQue.pop();
 		
-		inQue[t] = false;
+		inQue[it] = false;
 		
-		for (int i = h[t]; i != -1; i = ne[i]) {
-			
+		for (int i = h[it]; i != -1; i = ne[i])
+		{
 			int j = e[i];
 			
-			if (d[j] > d[t] + w[i]) {
-				
-				cnt[j] = cnt[t] + 1;
+			if (d[j] > d[it] + w[i])
+			{
+				cnt[j] = cnt[it] + 1;
 				if (cnt[j] >= n) return true;
 				
-				d[j] = d[t] + w[i];
+				d[j] = d[it] + w[i];
 				
-				if (!inQue[j]) {
-					
+				if (!inQue[j])
+				{
 					myQue.push(j);
 					
 					inQue[j] = true;
@@ -57,21 +59,20 @@ bool spfa() {
 	return false;
 }
 
-int main() {
-	
+int main()
+{
 	memset(h, -1, sizeof h);
 	
-	scanf("%d%d", &n, &m);
+	cin >> n >> m;
 	
-	for (int i = 0; i < m; i++) {
-		
+	for (int i = 0; i < m; i++)
+	{
 		scanf("%d%d%d", &x, &y, &z);
 		
 		add(x, y, z);
 	}
 	
-	if (spfa()) puts("Yes");
-	else puts("No");
+	cout << (spfa() ? "Yes" : "No") << endl;
 	
 	return 0;
-}
+} 

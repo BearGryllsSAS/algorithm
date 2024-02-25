@@ -2,49 +2,57 @@
 #include <iostream>
 using namespace std;
 
-/* 图的深度优先搜索题目 */
+/* 图的广度优先遍历题目 */
 
-const int N = 1e5 + 10, M = 2 * N;
+const int N = 1e5 + 10;
 
 int n, m, a, b;
-int h[N], e[M], ne[M], idx;
+int h[N], e[N], ne[N], idx;
 int q[N], d[N];
 
-void add(int a, int b) {
+void add(int a, int b)
+{
 	e[idx] = b, ne[idx] = h[a], h[a] = idx++;
 }
 
-int bfs() {
+int bfs()
+{
+	memset(d, -1, sizeof d);
+	d[1] = 0;
+	
 	int hh = 0, tt = -1;
 	q[++tt] = 1;
 	
-	memset(d, -1, N);
-	d[1] = 0;
-	
-	while (hh <= tt) {
+	while (hh <= tt)
+	{
 		int it = q[hh++];
 		
-		for (int i = h[it]; i != -1; i = ne[i]) {
+		for (int i = h[it]; i != -1; i = ne[i])
+		{
 			int j = e[i];
 			
-			if (d[j] == -1) {
+			if (d[j] == -1)
+			{
 				d[j] = d[it] + 1;
 				
-				q[++tt] = j;
-			}
-		}
-	}
+				q[++tt] = j;	
+			}	
+		}	
+	}	
 	
 	return d[n];
-} 
+}
 
-int main() {
-	memset(h, -1, N);
+
+int main()
+{
+	memset(h, -1, sizeof h);
 	
 	cin >> n >> m;
 	
-	for (int i = 0; i < m; i++) {
-		cin >> a >> b;
+	for (int i = 0; i < m; i++)
+	{
+		scanf("%d%d", &a, &b);
 		
 		add(a, b);
 	}
@@ -53,3 +61,4 @@ int main() {
 	
 	return 0;
 }
+ 

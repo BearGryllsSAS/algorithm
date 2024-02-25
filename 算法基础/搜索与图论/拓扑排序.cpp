@@ -4,54 +4,66 @@ using namespace std;
 
 /* Õÿ∆À≈≈–Úƒ£∞Â */
 
-const int N = 1e5 + 10, M = 2 * N;
+const int N = 1e5 + 10;
 
 int n, m, x, y;
-int h[N], e[M], ne[M], idx;
+int h[N], e[N], ne[N], idx;
 int q[N], d[N];
 
-void add(int a, int b) {
-	e[idx] = b, ne[idx] = h[a], h[a] = idx++;
-}
+void add(int x, int y)
+{
+	e[idx] = y, ne[idx] = h[x], h[x] = idx++;	
+} 
 
-bool topSort() {
+bool topSort()
+{
 	int hh = 0, tt = -1;
 	
-	for (int i = 1; i <= n; i++) {
+	for (int i = 1; i <= n; i++)
+	{
 		if (!d[i]) q[++tt] = i;
 	}
 	
-	while (hh <= tt) {
+	while (hh <= tt)
+	{
 		int it = q[hh++];
 		
-		for (int i = h[it]; i != -1; i = ne[i]) {
+		for (int i = h[it]; i != -1; i = ne[i])
+		{
 			int j = e[i];
 			
 			if (--d[j] == 0) q[++tt] = j;
- 		}
+		}
 	}
 	
 	return tt == n - 1;
 }
 
-int main() {
-	memset(h, -1, N);
+int main()
+{
+	memset(h, -1, sizeof h);
 	
 	cin >> n >> m;
 	
-	for (int i = 0; i < m; i++) {
-		cin >> x >> y;
+	for (int i = 0; i < m; i++)
+	{
+		scanf("%d%d", &x, &y);
 		
 		add(x, y);
 		
 		d[y]++;
 	}
-
-	if (topSort()) {
-		for (int i = 0; i < n; i++) cout << q[i] << ' ';
-		cout << endl;
+	
+	if (topSort()) 
+	{
+		for (int i = 0; i < n; i++) printf("%d ", q[i]);
 	}
-	else cout << "-1" << endl;
+	else 
+	{
+		printf("-1");
+	}
+	
+	puts("");
 	
 	return 0;
 }

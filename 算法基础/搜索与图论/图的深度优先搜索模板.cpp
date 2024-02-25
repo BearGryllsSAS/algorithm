@@ -10,14 +10,17 @@ int n, m;
 int h[N], e[M], ne[M], idx;
 int visit[N];
 
-void add(int a, int b) {
+void add(int a, int b) 
+{
 	e[idx] = b, ne[idx] = h[a], h[a] = idx++;
 }
 
-void dfs(int u) {
+void dfs(int u) 
+{
 	visit[u] = true;
 	
-	for (int i = h[u]; i != -1; i = ne[i]) {
+	for (int i = h[u]; i != -1; i = ne[i]) 
+	{
 		int j = e[i];
 		
 		if (visit[j]) dfs(j);
@@ -25,7 +28,8 @@ void dfs(int u) {
 }
 
 
-int main() {
+int main() 
+{
 	
 	memset(visit, -1, N);
 	
